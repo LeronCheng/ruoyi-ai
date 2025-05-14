@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * dify 聊天管理
@@ -46,7 +47,7 @@ public class DifyWorkflowServiceImpl implements IChatService {
         DifyConfig config = DifyConfig.builder()
                 .baseUrl(chatModelVo.getApiHost())
                 .apiKey(chatModelVo.getApiKey())
-                .connectTimeout(5000)
+                .connectTimeout(50000)
                 .readTimeout(60000)
                 .writeTimeout(30000)
                 .build();
@@ -54,15 +55,14 @@ public class DifyWorkflowServiceImpl implements IChatService {
         List<Message> messages = chatRequest.getMessages();
         Message message = messages.get(messages.size() - 1);
         // 创建工作流请求
-        Map<String, Object> inputs = new HashMap<>();
-        inputs.put("model", "deepseek");
-        inputs.put("input", message.getContent());
-        inputs.put("style", "deepseek");
-
+//        Map<String, Object> inputs = new HashMap<>();
+//        inputs.put("model", "deepseek");
+//        inputs.put("input", message.getContent());
+//        inputs.put("style", "deepseek");
         WorkflowRunRequest request = WorkflowRunRequest.builder()
-                .inputs(inputs)
+                .inputs(chatRequest.getInputs())
                 .responseMode(ResponseMode.STREAMING)
-                .user("user-123")
+                .user(chatRequest.getUserId().toString())
                 .build();
 
         // 发送流式消息
@@ -83,6 +83,7 @@ public class DifyWorkflowServiceImpl implements IChatService {
                     System.out.println("节点完成: " + event);
                 }
 
+                @SneakyThrows
                 @Override
                 public void onWorkflowFinished(WorkflowFinishedEvent event) {
                     emitter.complete();
@@ -102,7 +103,7 @@ public class DifyWorkflowServiceImpl implements IChatService {
                 @SneakyThrows
                 @Override
                 public void onWorkflowTextChunk(WorkflowTextChunkEvent event) {
-                    emitter.send(event.getData().getText());
+                    emitter.send(event);
                     System.out.println("文本片段: " + event);
                 }
 
