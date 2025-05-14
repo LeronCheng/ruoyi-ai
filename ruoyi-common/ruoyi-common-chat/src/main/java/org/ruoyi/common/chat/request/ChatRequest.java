@@ -5,6 +5,7 @@ import lombok.Data;
 import org.ruoyi.common.chat.entity.chat.Message;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *  对话请求对象
@@ -77,5 +78,9 @@ public class ChatRequest {
      */
     private Boolean usingContext = Boolean.TRUE;
 
+    /**
+     * dify  参数
+     */
+    private Map<String, Object> inputs;
 
 }

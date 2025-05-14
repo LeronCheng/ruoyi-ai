@@ -161,7 +161,7 @@ public class SseServiceImpl implements ISseService {
 
         if(StringUtils.isEmpty(sysPrompt)){
             // TODO 系统默认提示词,后续会增加提示词管理
-            sysPrompt ="你是一个由RuoYI-AI开发的人工智能助手，名字叫熊猫助手。你擅长中英文对话，能够理解并处理各种问题，提供安全、有帮助、准确的回答。" +
+            sysPrompt ="你是一个由碳一开发的人工智能助手，名字叫Cone助手。你擅长中英文对话，能够理解并处理各种问题，提供安全、有帮助、准确的回答。" +
                     "当前时间："+ DateUtils.getDate()+
                     "#注意：回复之前注意结合上下文和工具返回内容进行回复。";
         }

@@ -7,6 +7,7 @@ public enum ChatModeType {
     OLLAMA("ollama", "本地部署模型"),
     CHAT("chat", "中转模型"),
     DIFY("dify", "DIFY"),
+    DIFY_WORKFLOW("dify_workflow", "DIFY工作流"),
     COZE("coze", "扣子"),
     VECTOR("vector", "知识库向量模型");
 
