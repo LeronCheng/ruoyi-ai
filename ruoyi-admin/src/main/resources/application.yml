@@ -304,12 +304,12 @@ wx:
   #  企业微信应用
 wechat:
   cp:
-    corpId:
+    corpId: ww7a0622f0065f2cd6
     appConfigs:
-      - agentId:
-        secret: ''
-        token:   ''
-        aesKey: ''
+      - agentId: 1000081
+        secret: hpKx30Z7Jgx6EuEkmE8lwGTAWu5W7T5juyKrIoayPeK
+        token: FBvD5SHsLXH4XakSxHs76
+        aesKey: zeYKvpbvUg3JxfBKVlg7Cuq0t776HnbMiEUyJXt5AfS
 
 spring:
   ai:
