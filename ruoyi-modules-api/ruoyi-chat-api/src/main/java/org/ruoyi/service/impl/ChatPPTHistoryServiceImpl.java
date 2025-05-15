@@ -62,7 +62,7 @@ public class ChatPPTHistoryServiceImpl implements ChatPPTHistoryService {
         lqw.eq(ObjectUtils.isNotEmpty(bo.getUserId()), ChatPPTHistory::getUserId, bo.getUserId());
         lqw.like(StringUtils.isNotBlank(bo.getPrompt()), ChatPPTHistory::getPrompt, bo.getPrompt());
         lqw.eq(StringUtils.isNotBlank(bo.getPptValue()), ChatPPTHistory::getPptValue, bo.getPptValue());
-        lqw.eq(ObjectUtils.isNotEmpty(bo.getCreatTime()), ChatPPTHistory::getCreatTime, bo.getCreatTime());
+        lqw.eq(ObjectUtils.isNotEmpty(bo.getCreateTime()), ChatPPTHistory::getCreateTime, bo.getCreateTime());
         lqw.eq(ObjectUtils.isNotEmpty(bo.getState()), ChatPPTHistory::getState, bo.getState());
         return lqw;
     }
