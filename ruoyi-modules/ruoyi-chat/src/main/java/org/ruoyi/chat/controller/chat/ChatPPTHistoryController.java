@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.ruoyi.chat.service.chat.IChatCostService;
 import org.ruoyi.common.core.domain.R;
 import org.ruoyi.common.core.validate.AddGroup;
 import org.ruoyi.common.core.validate.EditGroup;
@@ -21,6 +22,7 @@ import org.ruoyi.domain.vo.ChatGptsVo;
 import org.ruoyi.domain.vo.ChatPPTHistoryVo;
 import org.ruoyi.service.ChatPPTHistoryService;
 import org.ruoyi.service.IChatGptsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,11 +42,14 @@ public class ChatPPTHistoryController extends BaseController {
 
     private final ChatPPTHistoryService chatPPTHistoryService;
 
+    private final IChatCostService chatCostService;
+
     /**
      * 查询应用管理列表
      */
     @GetMapping("/list")
     public TableDataInfo<ChatPPTHistoryVo> list(ChatPPTHistory bo, PageQuery pageQuery) {
+        bo.setUserId(chatCostService.getUserId());
         return chatPPTHistoryService.queryPageList(bo, pageQuery);
     }
 
