@@ -40,10 +40,6 @@ public class ChatPPTHistory extends BaseEntity {
      */
     private String pptValue;
 
-    /**
-     * 创建时间
-     */
-    private Date creatTime;
 
     /**
      * 状态
