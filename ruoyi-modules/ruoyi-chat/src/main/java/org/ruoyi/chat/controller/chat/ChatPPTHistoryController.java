@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.ruoyi.chat.service.chat.IChatCostService;
 import org.ruoyi.common.core.domain.R;
 import org.ruoyi.common.core.validate.AddGroup;
@@ -50,6 +51,9 @@ public class ChatPPTHistoryController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo<ChatPPTHistoryVo> list(ChatPPTHistory bo, PageQuery pageQuery) {
         bo.setUserId(chatCostService.getUserId());
+        //设置只允许查询20条
+        pageQuery.setPageNum(1);
+        pageQuery.setPageSize(20);
         return chatPPTHistoryService.queryPageList(bo, pageQuery);
     }
 
