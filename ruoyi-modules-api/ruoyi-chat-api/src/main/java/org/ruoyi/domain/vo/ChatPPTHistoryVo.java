@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.ruoyi.domain.ChatGpts;
+import org.ruoyi.domain.ChatPPTHistory;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.Date;
 
 @Data
 @ExcelIgnoreUnannotated
-@AutoMapper(target = ChatGpts.class)
+@AutoMapper(target = ChatPPTHistory.class)
 public class ChatPPTHistoryVo implements Serializable {
 
     @Serial
