@@ -307,7 +307,7 @@ wechat:
     corpId: ww7a0622f0065f2cd6
     appConfigs:
       - agentId: 1000081
-        secret: hpKx30Z7Jgx6EuEkmE8lwGTAWu5W7T5juyKrIoayPeK
+        secret: xLvezCu2FAcWo0_y1mZhZ34PwprINqN_fG2LH_4SazM
         token: FBvD5SHsLXH4XakSxHs76
         aesKey: zeYKvpbvUg3JxfBKVlg7Cuq0t776HnbMiEUyJXt5AfS
 
