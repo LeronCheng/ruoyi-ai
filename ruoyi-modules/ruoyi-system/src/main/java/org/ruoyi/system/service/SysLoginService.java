@@ -97,6 +97,22 @@ public class SysLoginService {
         return StpUtil.getTokenValue();
     }
 
+    /*
+    * 企业微信登陆方法
+    * */
+    public String loginByWechat(String tenantId, String username, String password, String code, String uuid) {
+        SysUserVo user = loadUserByUsername(tenantId, username);
+        checkLogin(LoginType.PASSWORD, tenantId, username, ()-> true);
+        // 此处可根据登录用户的数据不同 自行创建 loginUser
+        LoginUser loginUser = buildLoginUser(user);
+        // 生成token
+        LoginHelper.loginByDevice(loginUser, DeviceType.PC);
+
+        recordLogininfor(loginUser.getTenantId(), username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success"));
+        recordLoginInfo(user.getUserId());
+        return StpUtil.getTokenValue();
+    }
+
     public String smsLogin(String tenantId, String phonenumber, String smsCode) {
         // 校验租户
         checkTenant(tenantId);

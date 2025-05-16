@@ -130,4 +130,14 @@ public class LoginUser implements Serializable {
         return userType + ":" + userId;
     }
 
+
+    /**
+     * 企业微信用户信息
+     */
+//    private SysUserEnterprise userEnterprise;
+//
+//    public LoginUser(SysUserEnterprise userEnterprise) {
+//        this.userEnterprise = userEnterprise;
+//    }
+
 }
