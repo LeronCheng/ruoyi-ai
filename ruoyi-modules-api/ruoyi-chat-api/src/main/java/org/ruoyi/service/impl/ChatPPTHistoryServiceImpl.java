@@ -72,11 +72,11 @@ public class ChatPPTHistoryServiceImpl implements ChatPPTHistoryService {
      */
     @Override
     public Boolean insertByBo(ChatPPTHistory bo) {
-        ChatPPTHistory add = MapstructUtils.convert(bo, ChatPPTHistory.class);
-        validEntityBeforeSave(add);
-        boolean flag = baseMapper.insert(add) > 0;
+//        ChatPPTHistory add = MapstructUtils.convert(bo, ChatPPTHistory.class);
+        validEntityBeforeSave(bo);
+        boolean flag = baseMapper.insert(bo) > 0;
         if (flag) {
-            bo.setId(add.getId());
+            bo.setId(bo.getId());
         }
         return flag;
     }

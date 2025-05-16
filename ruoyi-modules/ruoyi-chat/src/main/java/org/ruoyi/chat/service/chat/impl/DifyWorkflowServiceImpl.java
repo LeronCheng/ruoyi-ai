@@ -16,16 +16,15 @@ import org.ruoyi.chat.enums.ChatModeType;
 import org.ruoyi.chat.service.chat.IChatService;
 import org.ruoyi.common.chat.entity.chat.Message;
 import org.ruoyi.common.chat.request.ChatRequest;
+import org.ruoyi.domain.ChatPPTHistory;
 import org.ruoyi.domain.vo.ChatModelVo;
+import org.ruoyi.service.ChatPPTHistoryService;
 import org.ruoyi.service.IChatModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * dify 聊天管理
@@ -38,6 +37,9 @@ public class DifyWorkflowServiceImpl implements IChatService {
 
     @Autowired
     private IChatModelService chatModelService;
+
+    @Autowired
+    private ChatPPTHistoryService chatPPTHistoryService;
 
     @Override
     public SseEmitter chat(ChatRequest chatRequest, SseEmitter emitter) {
@@ -87,6 +89,13 @@ public class DifyWorkflowServiceImpl implements IChatService {
                 @Override
                 public void onWorkflowFinished(WorkflowFinishedEvent event) {
                     emitter.complete();
+                    Object output = event.getData().getOutputs().get("output");
+                    ChatPPTHistory chatPPTHistory = new ChatPPTHistory();
+                    chatPPTHistory.setPrompt(chatRequest.getPrompt());
+                    chatPPTHistory.setUserId(chatRequest.getUserId());
+                    chatPPTHistory.setPptValue(output.toString());
+                    chatPPTHistory.setCreateTime(new Date());
+                    chatPPTHistoryService.insertByBo(chatPPTHistory);
                     System.out.println("工作流完成: " + event);
                 }
 
