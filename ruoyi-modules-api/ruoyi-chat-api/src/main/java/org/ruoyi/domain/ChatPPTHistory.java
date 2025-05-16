@@ -1,5 +1,6 @@
 package org.ruoyi.domain;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -40,7 +41,10 @@ public class ChatPPTHistory extends BaseEntity {
      */
     private String pptValue;
 
-
+    /**
+     * 创建时间
+     */
+    private Date  createTime;
     /**
      * 状态
      */

@@ -46,6 +46,11 @@ public class ChatPPTHistoryVo implements Serializable {
 
 
     /**
+     * 创建时间
+     */
+    @ExcelProperty(value = "创建时间")
+    private Date  createTime;
+    /**
      * 状态
      */
     @ExcelProperty(value = "状态")
