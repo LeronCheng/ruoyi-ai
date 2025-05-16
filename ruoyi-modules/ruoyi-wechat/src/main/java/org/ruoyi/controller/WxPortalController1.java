@@ -57,12 +57,13 @@ public class WxPortalController1 {
 
 
 	@GetMapping("weChat/login")
-	public ModelAndView login(String code) {
+	public String login(String code) {
 		log.info("code: {}",code);
 		ModelAndView modelAndView = new ModelAndView();
 		if (code == null || code.isEmpty()) {
-			modelAndView.setViewName("http://lwmes.carbononegroup.com:6039");
-			return modelAndView; //返回网站首页
+//			modelAndView.setViewName("/");
+//			return modelAndView; //返回网站首页
+			return "redirect:http://lwmes.carbononegroup.com:6039";
 		}
 		try {
 			// 初始化WxCpService
@@ -104,14 +105,16 @@ public class WxPortalController1 {
 			log.info("企微单点登录-->>{}", JSONUtil.toJsonStr(userDetail));
 			String url = "redirect:http://lwmes.carbononegroup.com:6039/qywx.html?token=" + token;
 			log.info("token ： {}",url);
-			modelAndView.setViewName("http://lwmes.carbononegroup.com:6039");
-			modelAndView.addObject("token",token);
-			return modelAndView;
+//			modelAndView.setViewName("http://lwmes.carbononegroup.com:6039");
+//			modelAndView.addObject("token",token);
+//			return modelAndView;
+			return url;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("企微单点登录报错-->>{}", e.getMessage());
-			modelAndView.setViewName("http://lwmes.carbononegroup.com:6039");
-			return modelAndView; //返回网站首页
+//			modelAndView.setViewName("http://lwmes.carbononegroup.com:6039");
+			return "redirect:http://lwmes.carbononegroup.com:6039";
 		}
 	}
 }

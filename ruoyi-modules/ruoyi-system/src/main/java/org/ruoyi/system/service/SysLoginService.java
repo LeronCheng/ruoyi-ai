@@ -102,7 +102,7 @@ public class SysLoginService {
     * */
     public String loginByWechat(String tenantId, String username, String password, String code, String uuid) {
         SysUserVo user = loadUserByUsername(tenantId, username);
-        checkLogin(LoginType.PASSWORD, tenantId, username, ()-> true);
+        checkLogin(LoginType.PASSWORD, tenantId, username, ()-> false);
         // 此处可根据登录用户的数据不同 自行创建 loginUser
         LoginUser loginUser = buildLoginUser(user);
         // 生成token
