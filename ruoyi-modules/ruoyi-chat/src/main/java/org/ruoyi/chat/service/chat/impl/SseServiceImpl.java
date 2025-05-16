@@ -131,7 +131,7 @@ public class SseServiceImpl implements ISseService {
 
             String clientIp = IpUtil.getClientIp(request);
             // 访客每天默认只能对话5次
-            int timeWindowInSeconds = 5;
+            int timeWindowInSeconds = 50;
             String redisKey = "clientIp:" + clientIp;
             int count = 0;
             // 检查Redis中的对话次数

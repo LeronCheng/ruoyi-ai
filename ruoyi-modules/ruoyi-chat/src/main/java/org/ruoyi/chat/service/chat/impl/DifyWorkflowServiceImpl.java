@@ -61,6 +61,10 @@ public class DifyWorkflowServiceImpl implements IChatService {
 //        inputs.put("model", "deepseek");
 //        inputs.put("input", message.getContent());
 //        inputs.put("style", "deepseek");
+        if (chatRequest.getUserId() == null) {
+        //  随机8位数字
+            chatRequest.setUserId(Long.valueOf(new Random().nextInt(10000000)));
+        }
         WorkflowRunRequest request = WorkflowRunRequest.builder()
                 .inputs(chatRequest.getInputs())
                 .responseMode(ResponseMode.STREAMING)
