@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.ruoyi.chat.service.chat.IChatCostService;
+import org.ruoyi.chat.util.SvgToppt;
 import org.ruoyi.common.core.domain.R;
 import org.ruoyi.common.core.validate.AddGroup;
 import org.ruoyi.common.core.validate.EditGroup;
@@ -113,5 +115,24 @@ public class ChatPPTHistoryController extends BaseController {
     public R<Void> remove(@NotEmpty(message = "主键不能为空")
                           @PathVariable Long[] ids) {
         return toAjax(chatPPTHistoryService.deleteWithValidByIds(List.of(ids), true));
+    }
+
+    /**
+     * 将SVG转换为PPT
+     */
+    @PostMapping("/convertSvgToPpt")
+    public void convertSvgToPpt(@RequestBody String svgContent, HttpServletResponse response) {
+        try {
+            XMLSlideShow ppt = SvgToppt.convertToPptBySvgString(svgContent);
+            
+            // 设置响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.presentationml.presentation");
+            response.setHeader("Content-Disposition", "attachment; filename=presentation.pptx");
+            
+            // 将PPT写入响应流
+            ppt.write(response.getOutputStream());
+        } catch (Exception e) {
+            throw new RuntimeException("转换PPT失败", e);
+        }
     }
 }
