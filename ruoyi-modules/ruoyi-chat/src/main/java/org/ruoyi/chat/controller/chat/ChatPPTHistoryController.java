@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -120,19 +121,42 @@ public class ChatPPTHistoryController extends BaseController {
     /**
      * 将SVG转换为PPT
      */
+    // ... existing code ...
     @PostMapping("/convertSvgToPpt")
     public void convertSvgToPpt(@RequestBody String svgContent, HttpServletResponse response) {
         try {
+            // 记录接收到的SVG内容长度和内容
+//            log.info("Received SVG content length: {}", svgContent.length());
+//            log.debug("Received SVG content: {}", svgContent);
+
+            // 验证SVG内容
+            if (svgContent == null || svgContent.trim().isEmpty()) {
+                throw new IllegalArgumentException("SVG内容不能为空");
+            }
+
+            // 验证SVG标签
+            if (!svgContent.contains("<svg") || !svgContent.contains("</svg>")) {
+//                log.error("Invalid SVG content: missing SVG tags");
+                throw new IllegalArgumentException("无效的SVG内容：缺少SVG标签");
+            }
+
+            // 转换SVG为PPT
             XMLSlideShow ppt = SvgToppt.convertToPptBySvgString(svgContent);
-            
+
             // 设置响应头
             response.setContentType("application/vnd.openxmlformats-officedocument.presentationml.presentation");
             response.setHeader("Content-Disposition", "attachment; filename=presentation.pptx");
-            
+
             // 将PPT写入响应流
-            ppt.write(response.getOutputStream());
+            try (OutputStream out = response.getOutputStream()) {
+                ppt.write(out);
+                out.flush();
+//                log.info("PPT file generated successfully");
+            }
         } catch (Exception e) {
-            throw new RuntimeException("转换PPT失败", e);
+//            log.error("转换PPT失败: {}", e.getMessage(), e);
+            throw new RuntimeException("转换PPT失败: " + e.getMessage(), e);
         }
     }
+// ... existing code ...
 }
